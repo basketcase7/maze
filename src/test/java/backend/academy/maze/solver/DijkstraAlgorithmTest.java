@@ -1,8 +1,8 @@
 package backend.academy.maze.solver;
 
 import backend.academy.maze.generator.Cell;
-import backend.academy.maze.solver.solve_algorithms.DijkstraAlgorithm;
-import backend.academy.maze.solver.solve_algorithms.Solver;
+import backend.academy.maze.solver.algorithms.DijkstraAlgorithm;
+import backend.academy.maze.solver.algorithms.Solver;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,9 +1,9 @@
 package backend.academy.maze.solver;
 
 import backend.academy.maze.generator.Cell;
-import backend.academy.maze.solver.solve_algorithms.BfsAlgorithm;
-import backend.academy.maze.solver.solve_algorithms.DijkstraAlgorithm;
-import backend.academy.maze.solver.solve_algorithms.Solver;
+import backend.academy.maze.solver.algorithms.BfsAlgorithm;
+import backend.academy.maze.solver.algorithms.DijkstraAlgorithm;
+import backend.academy.maze.solver.algorithms.Solver;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

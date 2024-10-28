@@ -1,4 +1,4 @@
-package backend.academy.maze.solver.solve_algorithms;
+package backend.academy.maze.solver.algorithms;
 
 import backend.academy.maze.generator.Cell;
 import backend.academy.maze.solver.Coordinate;
