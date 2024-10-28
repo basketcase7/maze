@@ -1,4 +1,4 @@
-package backend.academy.maze.generator.generate_algorithms;
+package backend.academy.maze.generator.algorithms;
 
 import backend.academy.maze.generator.Cell;
 import backend.academy.maze.generator.GeneratorHandler;

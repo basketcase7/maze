@@ -1,7 +1,7 @@
 package backend.academy.maze.generator;
 
-import backend.academy.maze.generator.generate_algorithms.Algorithm;
-import backend.academy.maze.generator.generate_algorithms.KruskalAlgorithm;
+import backend.academy.maze.generator.algorithms.Algorithm;
+import backend.academy.maze.generator.algorithms.KruskalAlgorithm;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;

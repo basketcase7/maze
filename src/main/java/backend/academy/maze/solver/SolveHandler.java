@@ -4,7 +4,9 @@ import backend.academy.maze.generator.Cell;
 import backend.academy.maze.solver.solve_algorithms.BfsAlgorithm;
 import backend.academy.maze.solver.solve_algorithms.DijkstraAlgorithm;
 import backend.academy.maze.solver.solve_algorithms.Solver;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import static backend.academy.maze.InputClass.SCANNER;
 import static backend.academy.maze.InputClass.inputAlgorithm;
 import static backend.academy.maze.output.MazeDisplay.printMazeWithSolution;
@@ -17,6 +19,7 @@ import static backend.academy.maze.output.OutputClass.printSmth;
  */
 public class SolveHandler {
 
+    private Map<String, Solver> solversMap;
     private final int height;
     private final int width;
     private final Cell[][] maze;
@@ -25,9 +28,10 @@ public class SolveHandler {
 
     /**
      * Конструктор класса
+     *
      * @param height Высота лабиринта
-     * @param width Ширина Лабиринта
-     * @param maze Лабиринт в виде двумерного массива
+     * @param width  Ширина Лабиринта
+     * @param maze   Лабиринт в виде двумерного массива
      * @param pointA Координата начала пути
      * @param pointB Координата конца пути
      */
@@ -43,6 +47,7 @@ public class SolveHandler {
      * Метод организует решение лабиринта и его отображение с решением, если оно имеется
      */
     public void handle() {
+        iniSolversMap();
         while (true) {
             printSmth(CHOOSE_SOLVER);
             Solver solver = chooseSolveAlgorithm();
@@ -59,6 +64,7 @@ public class SolveHandler {
 
     /**
      * Метод для выбора алгоритма решения лабиринта
+     *
      * @return Выбранный алгоритм решения
      */
     private Solver chooseSolveAlgorithm() {
@@ -72,11 +78,16 @@ public class SolveHandler {
                 printSmth(INVALID_INPUT);
             }
         }
-        return switch (choice) {
-            case "1" -> new DijkstraAlgorithm();
-            case "2" -> new BfsAlgorithm();
-            default -> new DijkstraAlgorithm();
-        };
+        return solversMap.get(choice);
+    }
+
+    /**
+     * Метод для инициализации мапы алгоритмов решения
+     */
+    private void iniSolversMap() {
+        solversMap = new HashMap<>();
+        solversMap.put("1", new DijkstraAlgorithm());
+        solversMap.put("2", new BfsAlgorithm());
     }
 
 }

@@ -1,6 +1,6 @@
 package backend.academy.maze.generator;
 
-import backend.academy.maze.generator.generate_algorithms.Algorithm;
+import backend.academy.maze.generator.algorithms.Algorithm;
 
 /**
  * Интерфейс, который реализуется {@link GeneratorHandler}

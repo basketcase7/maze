@@ -2,7 +2,9 @@ package backend.academy.maze.output;
 
 import backend.academy.maze.generator.Cell;
 import backend.academy.maze.solver.Coordinate;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 import lombok.experimental.UtilityClass;
 import static backend.academy.maze.output.OutputClass.printSmth;
 
@@ -12,44 +14,35 @@ import static backend.academy.maze.output.OutputClass.printSmth;
 @UtilityClass
 public class MazeDisplay {
 
-    private String unValue = "Unexpected value: ";
+    private Map<Cell.Type, String> surfacesMap;
 
     /**
      * Вывод сгенерированного лабиринта
-     * @param maze Лабиринт в виде двумерного массива
+     *
+     * @param maze   Лабиринт в виде двумерного массива
      * @param height Высота лабиринта
-     * @param width Ширина лабиринта
+     * @param width  Ширина лабиринта
      */
     public static void printMaze(Cell[][] maze, int height, int width) {
-
+        initSurfacesMap();
         for (int row = 0; row < height; row++) {
             StringBuilder line = new StringBuilder();
-
             for (int col = 0; col < width; col++) {
-                char symbol;
-
-                switch (maze[row][col].type()) {
-                    case WALL -> symbol = '█';
-                    case PASSAGE -> symbol = ' ';
-                    case SAND -> symbol = '░';
-                    case ICE -> symbol = '○';
-                    default -> throw new IllegalStateException(unValue + maze[row][col].type());
-                }
-                line.append(symbol);
+                line.append(surfacesMap.get(maze[row][col].type()));
             }
-
             printSmth(String.valueOf(line));
         }
     }
 
     /**
      * Вывод лабиринта с решением
-     * @param path Лист координат, из которых состоит путь от точки A к точке B
+     *
+     * @param path   Лист координат, из которых состоит путь от точки A к точке B
      * @param height Высота лабиринта
-     * @param width Ширина лабиринта
+     * @param width  Ширина лабиринта
      * @param pointA Координата точки A
      * @param pointB Координата точки B
-     * @param maze Лабиринт в виде двумерного массива
+     * @param maze   Лабиринт в виде двумерного массива
      */
     public static void printMazeWithSolution(
         List<Coordinate> path,
@@ -59,6 +52,7 @@ public class MazeDisplay {
         Coordinate pointB,
         Cell[][] maze
     ) {
+        initSurfacesMap();
         for (int row = 0; row < height; row++) {
             StringBuilder line = new StringBuilder();
 
@@ -74,20 +68,23 @@ public class MazeDisplay {
                 } else if (path.contains(current)) {
                     symbol = '.';
                 } else {
-
-                    switch (maze[row][col].type()) {
-                        case WALL -> symbol = '█';
-                        case PASSAGE -> symbol = ' ';
-                        case SAND -> symbol = '░';
-                        case ICE -> symbol = '○';
-                        default -> throw new IllegalStateException(unValue + maze[row][col].type());
-                    }
+                    symbol = surfacesMap.get(maze[row][col].type()).charAt(0);
                 }
                 line.append(symbol);
             }
-
             printSmth(line.toString());
         }
+    }
+
+    /**
+     * Метод для инициализации мапы поверхностей
+     */
+    private void initSurfacesMap() {
+        surfacesMap = new EnumMap<>(Cell.Type.class);
+        surfacesMap.put(Cell.Type.WALL, "█");
+        surfacesMap.put(Cell.Type.PASSAGE, " ");
+        surfacesMap.put(Cell.Type.SAND, "░");
+        surfacesMap.put(Cell.Type.ICE, "○");
     }
 
 }

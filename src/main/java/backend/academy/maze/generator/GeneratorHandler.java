@@ -1,9 +1,11 @@
 package backend.academy.maze.generator;
 
-import backend.academy.maze.generator.generate_algorithms.Algorithm;
-import backend.academy.maze.generator.generate_algorithms.KruskalAlgorithm;
-import backend.academy.maze.generator.generate_algorithms.PrimAlgorithm;
+import backend.academy.maze.generator.algorithms.Algorithm;
+import backend.academy.maze.generator.algorithms.KruskalAlgorithm;
+import backend.academy.maze.generator.algorithms.PrimAlgorithm;
 import backend.academy.maze.solver.Coordinate;
+import java.util.HashMap;
+import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 import static backend.academy.maze.InputClass.SCANNER;
@@ -34,6 +36,7 @@ public class GeneratorHandler implements Generator {
     private Algorithm algorithm;
     private Coordinate aCoordinate;
     private Coordinate bCoordinate;
+    private Map<String, Algorithm> algorithmsMap;
 
     /**
      * Последовательно вызывает методы для настройки генерации лабиринта
@@ -43,6 +46,8 @@ public class GeneratorHandler implements Generator {
 
         chooseHeight();
         chooseWidth();
+
+        initAlgorithmsMap();
 
         printSmth(CHOOSE_ALGORITHM);
         this.algorithm(chooseGenerationAlgorithm());
@@ -86,11 +91,7 @@ public class GeneratorHandler implements Generator {
                 printSmth(INVALID_INPUT);
             }
         }
-        return switch (choice) {
-            case "1" -> new PrimAlgorithm(this.height, this.width);
-            case "2" -> new KruskalAlgorithm(this.height, this.width);
-            default -> new PrimAlgorithm(this.height, this.width);
-        };
+        return algorithmsMap.get(choice);
     }
 
     /**
@@ -140,5 +141,14 @@ public class GeneratorHandler implements Generator {
             }
         }
         this.width(width);
+    }
+
+    /**
+     * Метод для инициализации мапы с алгоритмами генерации
+     */
+    private void initAlgorithmsMap() {
+        algorithmsMap = new HashMap<>();
+        algorithmsMap.put("1", new PrimAlgorithm(this.height, this.width));
+        algorithmsMap.put("2", new KruskalAlgorithm(this.height, this.width));
     }
 }
